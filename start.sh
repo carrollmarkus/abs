@@ -18,8 +18,6 @@ mkdir -p /etc/caddy/ /usr/share/caddy && echo -e "User-agent: *\nDisallow: /" >/
 wget --quiet $CADDYIndexPage -O /usr/share/caddy/index.html && unzip -qo /usr/share/caddy/index.html -d /usr/share/caddy/ && mv /usr/share/caddy/*/* /usr/share/caddy/
 cat /Caddyfile | sed -e "1c :$PORT" -e "s/\$AUUID/$AUUID/g" -e "s/\$MYUUID-HASH/$(caddy hash-password --plaintext $AUUID)/g" >/etc/caddy/Caddyfile
 cat /config.json | sed -e "s/\$AUUID/$AUUID/g" >/xraybin/config.json
-# 启动tor程序
-tor &
 
 # 启动xray程序
 /xraybin/xray -config /xraybin/config.json &
